@@ -1,0 +1,38 @@
+from fastapi import FastAPI
+from models import ML
+
+url = []
+app = FastAPI()
+
+@app.post("/ml")
+async def process_url(ml: ML):
+    url.append(ml)
+    return {"message": "successfully posted"}
+
+@app.get("/mlall")
+async def get_url():
+    items = [entry["item"] for entry in url]
+    return {"url": items}
+
+
+{
+    "url": ["elllo", "elllo"]
+}
+
+
+from fastapi import FastAPI
+from models import ML
+
+url = []
+app = FastAPI()
+
+@app.post("/ml")
+async def process_url(ml: ML):
+    url.append(ml)
+    return {"message": "successfully posted"}
+
+@app.get("/mlall")
+async def get_url():
+    for entry in url:
+        yield {"url": entry["item"]}
+
